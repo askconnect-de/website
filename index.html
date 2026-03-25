@@ -1445,8 +1445,8 @@
                     <img src="https://media.licdn.com/dms/image/v2/D5603AQHjXuptSPqOwA/profile-displayphoto-shrink_200_200/B56ZSt6YGfGUAY-/0/1738084549517?e=2147483647&v=beta&t=XJ_JFVA22sOPzLnGG2OMXZPrKEFXK-VlGkF8BuT4NKM">
                 </div>
                 <div class="member-info">
-                    <h3>Alexander</h3>
-                    <p>Alex studiert Wirtschaftsingenieurwesen im 7. Semester an der Hochschule Albstadt-Sigmaringen und schreibt seine Bachelorarbeit über das Potenzial und Etablieren von KI-Agenten in einem Globalplayer. Neben dem Studium sammelte er in einem weltführenden Industrieunternehmen wertvolle Praxiserfahrung im Bereich Datenverarbeitung und -visualisierung. Diese Kenntnisse bilden heute die Grundlage, komplexe Daten verständlich aufzubereiten und in klare Entscheidungsgrundlagen zu überführen.</p>
+                    <h3><a href="www.linkedin.com/in/alexander-ortlieb" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">Alexander</a></h3>
+                    <p>Hi, ich bin Alex! Nach meinem Bachelor in Wirtschaftsingenieurwesen (B.Sc.) studiere ich nun im Master Data Engineering & Consulting. Aktuell verantworte ich im Architecture Management der ElringKlinger AG die Verarbeitung und Auswertung von IoT-Daten. Zuvor habe ich bei Bosch 1,5 Jahre Praxiserfahrung in der Datenvisualisierung gesammelt und in meiner Thesis autonome, LLM-basierte KI-Agenten entwickelt. Diese Kombination aus Data Science und KI nutze ich heute leidenschaftlich gern, um komplexe Daten verständlich aufzubereiten und in echten Unternehmenswert zu verwandeln.</p>
                 </div>
             </div>
             
@@ -1455,8 +1455,8 @@
                     <img src="./Bild Semih.png">
                 </div>
                 <div class="member-info">
-                    <h3>Semih</h3>
-                    <p>Semih befindet sich im 7. Semester des Wirtschaftsingenieurwesens an der Hochschule Albstadt-Sigmaringen und verfasst seine Bachelorarbeit rund um die Chancen und Herausforderungen von KI-Agenten. Durch seine Tätigkeit in einem internationalen Großkonzern der Automobilbranche gewann er umfassende Erfahrung in Projektleitung und Entwicklung. Dadurch entstand ein tiefes Verständnis für Prozesse, deren Optimierung und die Umsetzung innovativer, praxisnaher Lösungen.</p>
+                    <h3><a href="https://www.linkedin.com/in/semih-kalyoncu-08775b2ab/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">Semih</a></h3>
+                    <p>Hi, ich bin Semih! Nach meinem Bachelor in Wirtschaftsingenieurwesen (B.Sc.) studiere ich nun ebenfalls im Master Data Engineering & Consulting. Zuvor habe ich bei der Mercedes-Benz AG 1,5 Jahre Praxiserfahrung in der Projektleitung gesammelt, wo ich internationale Entwicklungsprojekte gesteuert und Entscheidungsgrundlagen für das Management aufbereitet habe. Meine Begeisterung für Künstliche Intelligenz habe ich unter anderem in meiner Thesis über die Entwicklung und Implementierung von KI- und Telefon-Agenten vertieft. Diese Verbindung aus strategischem Projektmanagement und Data Science nutze ich heute, um komplexe Prozesse zu optimieren und innovative Lösungen erfolgreich in die Praxis umzusetzen.</p>
                 </div>
             </div>
         </div>
@@ -1709,7 +1709,7 @@
     <script type="module">
       import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
       createChat({
-        webhookUrl: 'https://n8n.askconnect.de/webhook/b2c58a69-698b-4b3f-9642-5b0a7b710d33/chat',
+        webhookUrl: 'https://n8n-test.askconnect.de/webhook/8a9e1387-0bca-4937-9662-e82929c01c42/chat',
         webhookConfig: {
           method: 'POST',
           headers: {}
@@ -1723,7 +1723,7 @@
         showWelcomeScreen: false,
         defaultLanguage: 'en',
         initialMessages: [
-          'Hallo, ich bin Askbot, stelle mir deine Fragen! 👋'
+          'Hallo, ich bin ASKbot, stelle mir deine Fragen! 👋'
         ],
         i18n: {
           en: {
@@ -1843,7 +1843,7 @@
            let textOfRequestingUser = document.getElementById('input_text').value;
                       
 
-           fetch('https://n8n.askconnect.de/webhook/d5ff5476-bdea-48c7-b5ac-4711f0ca2798', {
+           fetch('https://n8n-test.askconnect.de/webhook/8a9e1387-0bca-4937-9662-e82929c01c42/chat', {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json'
