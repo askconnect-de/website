@@ -78,7 +78,15 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 1rem); }
+/* Die Hintergrundfarbe muss am <html>-Element hängen, nicht nur am <body>:
+   Beim Überscrollen auf dem Handy (Gummiband-Effekt) und beim Ein-/Ausfahren
+   der Adressleiste wird kurz die Fläche dahinter sichtbar – ohne diese Angabe
+   ist die weiß. */
+html {
+    background-color: #0c0c1e;
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+}
 
 body {
     font-family: 'Arial', Helvetica, sans-serif;
@@ -1503,7 +1511,11 @@ body.chat-body {
     .contact-form { padding: 1.75rem 1.25rem; }
     .footer-grid { grid-template-columns: 1fr; text-align: center; }
     .footer-social { justify-content: center; }
-    .ai-bot-character { left: 2%; bottom: 4%; transform: scale(0.6); }
+
+    /* Auf dem Handy fehlt neben Überschrift, Text und zwei Buttons schlicht der
+       Platz – die Roboter-Figur lag sonst über den Buttons und machte sie
+       unklickbar. Ab Tablet-Breite ist sie wieder da. */
+    .ai-bot-character { display: none; }
 
     .chat-topbar { padding: 0.7rem 1rem; }
     .chat-topbar-sub { display: none; }

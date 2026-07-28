@@ -184,11 +184,21 @@
                 });
             })
             .then(function (data) {
-                if (!data.reply && !data.done && !data.prefill) {
-                    throw new Error('Antwort enthält kein Feld "reply": ' + JSON.stringify(data).slice(0, 200));
+                /* n8n-Toleranz: Steht der "Respond to Webhook"-Node auf
+                   "First Incoming Item", kommt die Antwort des AI-Agent-Nodes
+                   unverändert als { "output": "…" } an – ein Array liefert er,
+                   wenn mehrere Items durchlaufen. Beides hier abfangen, damit
+                   der Chat auch ohne umgebauten Workflow funktioniert. */
+                if (Array.isArray(data)) data = data[0] || {};
+                var text = data.reply || data.output || data.text || data.message;
+
+                if (!text && !data.done && !data.prefill) {
+                    throw new Error('Antwort enthält kein Textfeld (erwartet "reply", ' +
+                        'akzeptiert auch "output"/"text"/"message"). Erhalten: ' +
+                        JSON.stringify(data).slice(0, 200));
                 }
                 showTyping(false);
-                if (data.reply) addMessage('assistant', data.reply);
+                if (text) addMessage('assistant', text);
                 if (data.done || data.prefill) {
                     prefillData = data.prefill || {};
                     handoverBtn.hidden = false;
