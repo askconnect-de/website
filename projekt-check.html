@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt-Check – lohnt sich das für Ihren Betrieb? | ASK CONNECT</title>
+    <meta name="description" content="Beschreiben Sie im Chat, wie Kundenanfragen in Ihrem Betrieb hereinkommen – unser Assistent prüft, was sich automatisieren lässt, und bereitet daraus eine Anfrage vor.">
+    <link rel="canonical" href="https://www.askconnect.de/projekt-check.html">
+    <link rel="icon" type="image/png" href="logo-icon.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="chat-body">
+
+<!-- Hintergrund-Partikel -->
+<div class="particles" id="particles"></div>
+
+<!-- Header -->
+<header class="site-header">
+    <nav class="nav">
+        <a class="brand" href="index.html">
+            <img src="logo-icon.png" alt="ASK CONNECT Logo">
+            <span class="brand-name">ASK CONNECT</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vorteile.html">Vorteile</a></li>
+            <li><a href="ablauf.html">Ablauf</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="projekt-check.html">Projekt-Check</a></li>
+            <li><a class="nav-cta" href="kontakt.html">Kontakt</a></li>
+        </ul>
+        <button class="burger" id="burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+</header>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<aside class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header"><span class="brand-name">ASK CONNECT</span></div>
+    <ul class="mobile-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="vorteile.html">Vorteile</a></li>
+        <li><a href="ablauf.html">Ablauf</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="projekt-check.html">Projekt-Check</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+</aside>
+
+<!-- Chat-Oberfläche -->
+<main class="chat-page">
+    <div class="chat-topbar">
+        <div class="chat-topbar-title">
+            🚀 Projekt-Check
+            <span class="chat-topbar-sub">KI-gestützte Beratung</span>
+        </div>
+        <div class="chat-topbar-actions">
+            <button class="chat-btn primary" id="chatHandover" type="button" hidden>📩 Anfrage absenden</button>
+            <button class="chat-btn" id="chatReset" type="button">Neuer Chat</button>
+            <a class="chat-btn" href="kontakt.html">Zum Formular</a>
+        </div>
+    </div>
+
+    <div class="chat-scroll" id="chatScroll">
+        <div class="chat-welcome" id="chatWelcome">
+            <h1>Wobei können wir helfen?</h1>
+            <p id="chatGreeting">Beschreiben Sie Ihr Anliegen in eigenen Worten – oder starten Sie mit einem der Vorschläge.</p>
+            <div class="chat-suggestions" id="chatSuggestions"></div>
+        </div>
+
+        <div class="chat-thread" id="chatThread" aria-live="polite" aria-relevant="additions"></div>
+
+        <div class="chat-error" id="chatError" role="alert">
+            Unser Assistent ist gerade nicht erreichbar.
+            <a href="kontakt.html">Schreiben Sie uns direkt über das Formular →</a>
+        </div>
+    </div>
+
+    <div class="chat-composer-wrap">
+        <div class="chat-composer">
+            <textarea class="chat-input" id="chatInput" rows="1" placeholder="Beschreiben Sie Ihr Anliegen…" aria-label="Nachricht eingeben"></textarea>
+            <button class="chat-send" id="chatSend" type="button" aria-label="Nachricht senden" disabled>➤</button>
+        </div>
+        <p class="chat-legal">
+            Der Assistent kann Fehler machen – bitte geben Sie keine sensiblen Daten ein.
+            <a href="datenschutz.html">Datenschutzhinweis</a>
+        </p>
+    </div>
+</main>
+
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/projekt-check.js" defer></script>
+</body>
+</html>

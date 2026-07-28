@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt – kostenloses Erstgespräch | ASK CONNECT</title>
+    <meta name="description" content="Kostenloses und unverbindliches Erstgespräch: Schreiben Sie uns, wie Anfragen in Ihrem Betrieb hereinkommen.">
+    <link rel="canonical" href="https://www.askconnect.de/kontakt.html">
+    <link rel="icon" type="image/png" href="logo-icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- Hintergrund-Partikel -->
+<div class="particles" id="particles"></div>
+
+<!-- Header -->
+<header class="site-header">
+    <nav class="nav">
+        <a class="brand" href="index.html">
+            <img src="logo2.png" alt="ASK CONNECT Logo">
+            <span class="brand-name">ASK CONNECT</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vorteile.html">Vorteile</a></li>
+            <li><a href="ablauf.html">Ablauf</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="projekt-check.html">Projekt-Check</a></li>
+            <li><a class="nav-cta" href="kontakt.html">Kontakt</a></li>
+        </ul>
+        <button class="burger" id="burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+</header>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<aside class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header"><span class="brand-name">ASK CONNECT</span></div>
+    <ul class="mobile-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="vorteile.html">Vorteile</a></li>
+        <li><a href="ablauf.html">Ablauf</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="projekt-check.html">Projekt-Check</a></li>
+        <li><a href="kontakt.html">Kontakt</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+</aside>
+
+<main>
+    <section class="page-hero">
+        <h1>Lassen Sie uns sprechen</h1>
+        <p>Beschreiben Sie kurz, wie Anfragen bei Ihnen hereinkommen – wir melden uns in der Regel innerhalb von 24 Stunden. Das Erstgespräch ist kostenlos und unverbindlich.</p>
+    </section>
+
+    <section>
+        <form class="contact-form" novalidate>
+            <div class="form-note" id="formNote"></div>
+
+            <div class="form-group">
+                <label for="input_name">Ihr Name *</label>
+                <input type="text" id="input_name" name="name" placeholder="Vor- und Nachname" autocomplete="name" required>
+            </div>
+            <div class="form-group">
+                <label for="input_email">Ihre E-Mail *</label>
+                <input type="email" id="input_email" name="email" placeholder="name@betrieb.de" autocomplete="email" required>
+            </div>
+            <div class="form-group">
+                <label for="input_company">Betrieb</label>
+                <input type="text" id="input_company" name="company" placeholder="Name Ihres Betriebs (optional)" autocomplete="organization">
+            </div>
+            <div class="form-group">
+                <label for="input_text">Worum geht es? *</label>
+                <textarea id="input_text" name="description" placeholder="z. B. Ich bin Elektriker, bin den ganzen Tag auf Baustellen und verpasse dauernd Anrufe von Kunden…" rows="6" required></textarea>
+            </div>
+
+            <input type="hidden" id="input_chat_history" name="chat_history" value="">
+            <button type="submit" class="cta-button">Nachricht senden</button>
+            <p class="form-hint">Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Angaben gemäß unserer <a href="datenschutz.html">Datenschutzerklärung</a> zu.</p>
+        </form>
+
+        <div class="contact-info">
+            <div class="contact-info-card">
+                <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+                <h4>E-Mail</h4>
+                <p><a href="mailto:info@askconnect.de">info@askconnect.de</a></p>
+            </div>
+            <div class="contact-info-card">
+                <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.83 16.57a1 1 0 0 0 1.21-.3l.36-.47A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.47.35a1 1 0 0 0-.29 1.23 14 14 0 0 0 6.39 6.39"/></svg></div>
+                <h4>Telefon</h4>
+                <p><a href="tel:+4915165187796">+49 1516 5187796</a></p>
+            </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="footer-grid">
+        <div>
+            <h4>ASK CONNECT GbR</h4>
+            <p>Karlstraße 24<br>72488 Sigmaringen<br>Deutschland</p>
+            <p><a href="mailto:info@askconnect.de">info@askconnect.de</a><br><a href="tel:+4915165187796">+49 1516 5187796</a></p>
+        </div>
+        <div>
+            <h4>Seiten</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="vorteile.html">Vorteile</a></li>
+                <li><a href="ablauf.html">Ablauf</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="projekt-check.html">Projekt-Check</a></li>
+                <li><a href="kontakt.html">Kontakt</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Rechtliches &amp; Social</h4>
+            <ul>
+                <li><a href="impressum.html">Impressum</a></li>
+                <li><a href="datenschutz.html">Datenschutz</a></li>
+            </ul>
+            <div class="footer-social">
+                <a href="https://www.linkedin.com/in/ask-connect" target="_blank" rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://www.instagram.com/askconnect.de?igsh=NnZycmdmMjg0NmVk" target="_blank" rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    Instagram
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 ASK CONNECT. Alle Rechte vorbehalten.</div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" type="button" aria-label="Nach oben scrollen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></button>
+
+<script src="assets/js/main.js" defer></script>
+<script type="module" src="assets/js/askbot-widget.js"></script>
+<script src="assets/js/kontakt.js" defer></script>
+</body>
+</html>
