@@ -19,11 +19,17 @@
 
     var STORAGE_KEY = 'askconnect_projektcheck';
 
+    /* Format der Ticket-ID, die der Workflow am Ende vergibt (ASK + Zähler).
+       Der Bindestrich ist optional, damit ASK-42 genauso erkannt wird. */
+    var TICKET_RE = /\bASK-?\d{1,8}\b/;
+
     /* ═══════════════ STATE ═══════════════ */
     var sessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : fallbackUUID();
     var messages = [];
     var isWaiting = false;
     var prefillData = null;
+    var ticketId = null;
+    var lastAssistantText = '';
 
     /* ═══════════════ DOM ═══════════════ */
     var scroller = document.getElementById('chatScroll');
@@ -198,8 +204,22 @@
                         JSON.stringify(data).slice(0, 200));
                 }
                 showTyping(false);
-                if (text) addMessage('assistant', text);
-                if (data.done || data.prefill) {
+                if (text) {
+                    addMessage('assistant', text);
+                    lastAssistantText = text;
+                }
+
+                /* Ticket-ID: bevorzugt aus einem eigenen Feld, sonst aus dem
+                   sichtbaren Text gefischt. Der Workflow hängt sie derzeit an
+                   die Abschlussnachricht an, statt sie separat zu liefern. */
+                if (typeof data.ticket === 'string' && TICKET_RE.test(data.ticket)) {
+                    ticketId = data.ticket.match(TICKET_RE)[0];
+                } else if (text) {
+                    var found = text.match(TICKET_RE);
+                    if (found) ticketId = found[0];
+                }
+
+                if (ticketId || data.done || data.prefill) {
                     prefillData = data.prefill || {};
                     handoverBtn.hidden = false;
                 }
@@ -225,8 +245,14 @@
     }
 
     /* ═══════════════ ÜBERGABE ANS KONTAKTFORMULAR ═══════════════
-       Chatverlauf + Prefill werden im sessionStorage abgelegt und von
-       kontakt.html ausgelesen. */
+       Es wandert bewusst so wenig wie möglich ins Formular: Liegt eine
+       Ticket-ID vor, reicht sie – das Gespräch selbst bleibt im n8n-Workflow
+       und wird dort über die ID nachgeschlagen. Nur wenn keine ID vergeben
+       wurde, geht die letzte Assistenten-Nachricht als Notnagel mit.
+
+       Kontaktdaten übernimmt die Seite ausdrücklich NICHT aus der
+       KI-Antwort: Name, E-Mail und Betrieb trägt der Besucher selbst ein,
+       damit sie nie durch das Sprachmodell laufen. */
     function buildTranscript() {
         return messages.map(function (m) {
             return (m.role === 'user' ? 'Besucher' : 'Assistent') + ': ' + m.content;
@@ -235,8 +261,9 @@
 
     function handover() {
         var payload = {
-            transcript: buildTranscript(),
-            prefill: prefillData || {}
+            ticket: ticketId || '',
+            lastMessage: ticketId ? '' : lastAssistantText,
+            transcript: ticketId ? '' : buildTranscript()
         };
         try {
             sessionStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
@@ -280,6 +307,8 @@
     resetBtn.addEventListener('click', function () {
         messages = [];
         prefillData = null;
+        ticketId = null;
+        lastAssistantText = '';
         sessionId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : fallbackUUID();
         thread.innerHTML = '';
         handoverBtn.hidden = true;

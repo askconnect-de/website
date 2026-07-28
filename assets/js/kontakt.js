@@ -36,23 +36,27 @@
             return;
         }
 
-        var prefill = data.prefill || {};
-        if (prefill.name) nameField.value = prefill.name;
-        if (prefill.email) emailField.value = prefill.email;
-        if (prefill.company) companyField.value = prefill.company;
-        if (prefill.message) textField.value = prefill.message;
-
-        if (data.transcript) {
-            historyField.value = data.transcript;
-            if (!textField.value.trim()) {
-                textField.value = '[Aus Projekt-Check]\n' + data.transcript;
+        /* Name, E-Mail und Betrieb werden bewusst NICHT vorbefüllt – diese
+           Angaben sollen den Chat-Assistenten nie erreichen. Sie trägt der
+           Besucher hier selbst ein. */
+        if (data.ticket) {
+            textField.value = 'Projekt-Check-ID: ' + data.ticket;
+            if (note) {
+                note.textContent = '✓ Ihre Projekt-Check-ID ' + data.ticket + ' wurde übernommen. '
+                    + 'Damit ordnen wir Ihr Gespräch zu – ergänzen Sie bitte nur noch Name und E-Mail.';
+            }
+        } else if (data.lastMessage || data.transcript) {
+            /* Notnagel: Der Workflow hat keine ID vergeben. Dann geht die
+               Zusammenfassung mit, damit die Anfrage nicht inhaltslos ankommt. */
+            textField.value = data.lastMessage || data.transcript;
+            historyField.value = data.transcript || '';
+            if (note) {
+                note.textContent = '✓ Ihr Projekt-Check wurde übernommen. '
+                    + 'Bitte ergänzen Sie noch Name und E-Mail.';
             }
         }
 
-        if (note) {
-            note.textContent = '✓ Ihr Projekt-Check wurde übernommen – der Chatverlauf wird mitgeschickt. Bitte ergänzen Sie noch Name und E-Mail.';
-            note.classList.add('show');
-        }
+        if (note && note.textContent) note.classList.add('show');
 
         try {
             sessionStorage.removeItem(STORAGE_KEY);
