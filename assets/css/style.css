@@ -233,6 +233,51 @@ body::before {
     font-weight: bold;
 }
 
+/* Projekt-Check als Gegenstück zum Kontakt-Button: weiße Fläche, Schrift im
+   Verlauf. `background-clip: text` färbt die Buchstaben – deshalb braucht der
+   Verlauf einen eigenen Träger, sonst würde er die weiße Fläche überschreiben. */
+.nav-links a.nav-check {
+    margin-left: 0.5rem;
+    background: #ffffff;
+    font-weight: bold;
+    border: 1px solid #ffffff;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.nav-links a.nav-check,
+.nav-links a.nav-check.active,
+.nav-links a.nav-check:hover {
+    color: transparent;
+}
+
+.nav-links a.nav-check::before {
+    content: attr(data-label);
+    background: linear-gradient(45deg, var(--cyan), var(--magenta));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-links a.nav-check {
+    position: relative;
+}
+
+.nav-links a.nav-check:hover {
+    background: #ffffff;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+    transform: translateY(-1px);
+}
+
+.mobile-nav-links a.nav-check {
+    color: var(--cyan);
+    font-weight: bold;
+}
+
 /* Der Kontakt-Button behält seinen Verlauf auch auf der Kontaktseite */
 .nav-links a.nav-cta.active {
     background: linear-gradient(45deg, var(--cyan), var(--magenta));
@@ -473,160 +518,30 @@ section {
 .cta-band h2 { font-size: 2rem; margin-bottom: 0.75rem; }
 .cta-band p { opacity: 0.9; margin-bottom: 1.75rem; }
 
-/* AI-Bot-Figur im Hero */
-.ai-bot-character {
+/* Roboter-Figur im Hero (Bilddatei statt CSS-Konstruktion).
+   Bewusst über die HÖHE bemessen, nicht über die Breite: Die Figur ist schmal
+   und hoch (Seitenverhältnis 0,55). Eine Breitenangabe macht sie doppelt so
+   hoch wie erwartet – dann ragt sie in die Überschrift. */
+.hero-bot {
     position: absolute;
-    bottom: 10%;
-    left: 5%;
-    width: 140px;
-    height: 200px;
+    bottom: 4%;
+    left: 3%;
+    height: 320px;
     z-index: 2;
+    pointer-events: none;
     animation: botHover 4s ease-in-out infinite;
 }
 
-.bot-head {
-    width: 100px;
-    height: 100px;
-    background: linear-gradient(145deg, #f8f8f8, #e0e0e0);
-    border-radius: 50%;
-    position: relative;
-    margin: 0 auto 5px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.8), 0 0 30px rgba(0, 212, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.9);
+.hero-bot img {
+    height: 100%;
+    width: auto;
+    max-width: none;
+    filter: drop-shadow(0 12px 30px rgba(0, 212, 255, 0.28));
 }
-
-.bot-visor {
-    position: absolute;
-    top: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70px;
-    height: 35px;
-    background: linear-gradient(135deg, #1a1a2e, #0a0a1a);
-    border-radius: 35px;
-    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
-}
-
-.bot-eyes {
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 18px;
-}
-
-.bot-eye {
-    width: 16px;
-    height: 16px;
-    background: radial-gradient(circle at 30% 30%, var(--cyan), #0080cc);
-    border-radius: 50%;
-    position: absolute;
-    animation: botBlink 5s ease-in-out infinite;
-    box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
-}
-
-.bot-eye.left { left: 4px; }
-.bot-eye.right { right: 4px; }
-
-.bot-eye::before {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 6px;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-}
-
-.bot-body {
-    width: 110px;
-    height: 85px;
-    background: linear-gradient(145deg, #f8f8f8, #e0e0e0);
-    border-radius: 55px 55px 40px 40px;
-    margin: 0 auto;
-    position: relative;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15), inset 0 2px 4px rgba(255, 255, 255, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.9);
-}
-
-.bot-chest-panel {
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 30px;
-    background: linear-gradient(135deg, #1a1a2e, #16213e);
-    border-radius: 8px;
-    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
-}
-
-.bot-chest-light {
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 8px;
-    height: 8px;
-    background: var(--cyan);
-    border-radius: 50%;
-    animation: botHeartbeat 2s ease-in-out infinite;
-    box-shadow: 0 0 12px rgba(0, 212, 255, 0.8);
-}
-
-.bot-arm {
-    position: absolute;
-    width: 35px;
-    height: 15px;
-    background: linear-gradient(145deg, #f0f0f0, #d0d0d0);
-    border-radius: 20px;
-    top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-}
-
-.bot-arm.left  { left: -38px; transform-origin: right center; animation: botWaveLeft 3s ease-in-out infinite; }
-.bot-arm.right { right: -38px; transform-origin: left center; animation: botWaveRight 4s ease-in-out infinite; }
-
-.bot-hand {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    background: linear-gradient(145deg, #f8f8f8, #e0e0e0);
-    border-radius: 50%;
-    top: -1.5px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.9);
-}
-
-.bot-hand.left  { left: -15px; }
-.bot-hand.right { right: -15px; }
 
 @keyframes botHover {
     0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-10px); }
-}
-
-@keyframes botWaveLeft {
-    0%, 70%, 100% { transform: rotate(-10deg); }
-    35%           { transform: rotate(-45deg); }
-}
-
-@keyframes botWaveRight {
-    0%, 60%, 100% { transform: rotate(10deg); }
-    30%           { transform: rotate(35deg); }
-}
-
-@keyframes botBlink {
-    0%, 92%, 100% { height: 16px; background: radial-gradient(circle at 30% 30%, #00d4ff, #0080cc); }
-    96%           { height: 2px; background: #003366; }
-}
-
-@keyframes botHeartbeat {
-    0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; box-shadow: 0 0 12px rgba(0, 212, 255, 0.8); }
-    50%      { transform: translateX(-50%) scale(1.3); opacity: 0.8; box-shadow: 0 0 20px rgba(0, 212, 255, 1); }
+    50%      { transform: translateY(-12px); }
 }
 
 /* ---------- 5. Karten / Grids ---------- */
@@ -1228,20 +1143,66 @@ body.chat-body {
 .chat-welcome {
     max-width: 780px;
     margin: 0 auto;
-    padding: 3rem 1.5rem 1rem;
+    padding: 1.25rem 1.5rem 1rem;
     text-align: center;
 }
 
 .chat-welcome h1 {
-    font-size: 2.2rem;
-    margin-bottom: 0.75rem;
+    font-size: 1.7rem;
+    margin-bottom: 0.5rem;
     background: linear-gradient(45deg, var(--cyan), var(--magenta), var(--violet));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.chat-welcome > p { opacity: 0.85; margin-bottom: 2rem; }
+.chat-welcome > p { opacity: 0.85; margin-bottom: 0.9rem; }
+
+/* Rahmen um Eckdaten und Datenschutzhinweis – fasst beides zu einem Block
+   zusammen, statt zwei lose Elemente nebeneinander stehen zu lassen. */
+.chat-briefing {
+    max-width: 660px;
+    margin: 0 auto 1rem;
+    padding: 0.9rem 1.1rem 1rem;
+    background: rgba(18, 18, 38, 0.55);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+}
+
+/* Eckdaten zum Ablauf: Dauer, Anzahl der Blöcke, Ergebnis */
+.chat-facts {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.9rem;
+}
+
+.chat-facts li {
+    background: rgba(0, 212, 255, 0.07);
+    border: 1px solid var(--line-soft);
+    border-radius: 20px;
+    padding: 0.45rem 0.95rem;
+    font-size: 0.86rem;
+    opacity: 0.9;
+}
+
+.chat-facts strong { color: var(--cyan); }
+
+.chat-privacy {
+    margin: 0;
+    padding: 0.7rem 1.1rem;
+    background: rgba(255, 0, 110, 0.07);
+    border: 1px solid rgba(255, 0, 110, 0.25);
+    border-radius: 12px;
+    font-size: 0.88rem;
+    opacity: 0.95;
+}
+
+.chat-privacy strong { color: #ff7ab0; }
+
+.chat-start { font-size: 0.92rem; opacity: 0.85; margin-bottom: 0.85rem; }
 
 .chat-suggestions {
     display: grid;
@@ -1254,7 +1215,7 @@ body.chat-body {
     background: var(--bg-card);
     border: 1px solid var(--line);
     border-radius: 14px;
-    padding: 1rem 1.15rem;
+    padding: 0.85rem 1rem;
     color: #fff;
     font-family: inherit;
     font-size: 0.93rem;
@@ -1365,6 +1326,38 @@ body.chat-body {
 .chat-send:hover:not(:disabled) { transform: scale(1.07); }
 .chat-send:disabled { opacity: 0.35; cursor: not-allowed; }
 
+/* Diktier-Knopf – nur sichtbar, wenn der Browser Spracherkennung kann */
+.chat-mic {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(0, 212, 255, 0.08);
+    color: var(--cyan);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.chat-mic svg { width: 19px; height: 19px; }
+
+.chat-mic:hover { background: rgba(0, 212, 255, 0.2); border-color: var(--cyan); }
+
+.chat-mic.recording {
+    background: var(--magenta);
+    border-color: var(--magenta);
+    color: #fff;
+    animation: micPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes micPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 0, 110, 0.5); }
+    50%      { box-shadow: 0 0 0 8px rgba(255, 0, 110, 0); }
+}
+
 .chat-legal {
     max-width: 780px;
     margin: 0.6rem auto 0;
@@ -1374,6 +1367,26 @@ body.chat-body {
 }
 
 .chat-legal a { color: rgba(0, 212, 255, 0.8); }
+
+/* Debug-Panel der Diktierfunktion – erscheint nur bei #micdebug in der URL */
+.mic-debug {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 9998;
+    width: 100%;
+    max-height: 45vh;
+    overflow-y: auto;
+    padding: 0.6rem 0.8rem;
+    background: rgba(0, 0, 0, 0.88);
+    border-top: 2px solid var(--magenta);
+    color: #9ef;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.mic-debug strong { color: var(--magenta); display: block; margin-bottom: 0.35rem; }
 
 /* ---------- 9. Footer & Utilities ---------- */
 .site-footer {
@@ -1462,7 +1475,7 @@ body.chat-body {
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .hero h1 { font-size: 3rem; }
     .page-hero h1 { font-size: 2.5rem; }
-    .ai-bot-character { left: 3%; bottom: 8%; transform: scale(0.85); }
+    .hero-bot { height: 195px; left: 1.5%; bottom: 4%; }
 }
 
 @media (max-width: 768px) {
@@ -1515,10 +1528,12 @@ body.chat-body {
     /* Auf dem Handy fehlt neben Überschrift, Text und zwei Buttons schlicht der
        Platz – die Roboter-Figur lag sonst über den Buttons und machte sie
        unklickbar. Ab Tablet-Breite ist sie wieder da. */
-    .ai-bot-character { display: none; }
+    .hero-bot { display: none; }
 
-    .chat-topbar { padding: 0.7rem 1rem; }
+    .chat-topbar { padding: 0.7rem 1rem; gap: 0.6rem; }
     .chat-topbar-sub { display: none; }
+    .chat-topbar-title { font-size: 0.95rem; white-space: nowrap; }
+    .chat-btn { padding: 0.45rem 0.7rem; font-size: 0.8rem; }
     .chat-thread, .chat-welcome { padding-left: 1rem; padding-right: 1rem; }
     .chat-composer-wrap { padding: 0.5rem 1rem 1rem; }
     .chat-suggestions { grid-template-columns: 1fr; }

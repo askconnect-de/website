@@ -17,6 +17,22 @@
         }
     }
 
+    /* ---------- Roboter im Hero ----------
+       Fehlt die Bilddatei, wird die Figur ausgeblendet statt ein kaputtes
+       Bildsymbol im Hero stehen zu lassen. */
+    var heroBot = document.querySelector('.hero-bot img');
+    if (heroBot) {
+        var hideBot = function () {
+            var box = heroBot.parentNode;
+            if (box) box.style.display = 'none';
+        };
+        heroBot.addEventListener('error', hideBot);
+        /* Dieses Skript läuft mit `defer`, das Fehlerereignis ist zu dem
+           Zeitpunkt oft schon durch. Deshalb zusätzlich der Nachtest:
+           fertig geladen, aber ohne Breite = die Datei fehlt. */
+        if (heroBot.complete && heroBot.naturalWidth === 0) hideBot();
+    }
+
     /* ---------- Header-Scroll & Scroll-to-Top ---------- */
     var header = document.querySelector('.site-header');
     var scrollTopBtn = document.getElementById('scrollTop');

@@ -27,7 +27,7 @@
             <li><a href="vorteile.html">Vorteile</a></li>
             <li><a href="ablauf.html">Ablauf</a></li>
             <li><a href="faq.html">FAQ</a></li>
-            <li><a href="projekt-check.html">Projekt-Check</a></li>
+            <li><a class="nav-check" href="projekt-check.html" data-label="Projekt-Check">Projekt-Check</a></li>
             <li><a class="nav-cta" href="kontakt.html">Kontakt</a></li>
         </ul>
         <button class="burger" id="burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
@@ -45,7 +45,7 @@
         <li><a href="vorteile.html">Vorteile</a></li>
         <li><a href="ablauf.html">Ablauf</a></li>
         <li><a href="faq.html">FAQ</a></li>
-        <li><a href="projekt-check.html">Projekt-Check</a></li>
+        <li><a class="nav-check" href="projekt-check.html" data-label="Projekt-Check">Projekt-Check</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
         <li><a href="impressum.html">Impressum</a></li>
         <li><a href="datenschutz.html">Datenschutz</a></li>
@@ -68,8 +68,25 @@
 
     <div class="chat-scroll" id="chatScroll">
         <div class="chat-welcome" id="chatWelcome">
-            <h1>Wobei können wir helfen?</h1>
-            <p id="chatGreeting">Beschreiben Sie Ihr Anliegen in eigenen Worten – oder starten Sie mit einem der Vorschläge.</p>
+            <h1>Wie viel Potenzial steckt in Ihren Abläufen?</h1>
+            <p id="chatGreeting">Finden wir es gemeinsam heraus – für weniger Aufwand und echte Kostenersparnis.</p>
+
+            <div class="chat-briefing">
+                <ul class="chat-facts">
+                    <li><strong>6</strong> kurze Frageblöcke, je 2–3 Fragen</li>
+                    <li><strong>ca. 10 Minuten</strong> Zeitaufwand</li>
+                    <li>Am Ende: <strong>Potenzial-Score</strong> und erster Schritt</li>
+                    <li><strong>Kostenlos</strong> und unverbindlich</li>
+                </ul>
+
+                <p class="chat-privacy">
+                    Bitte teilen Sie hier <strong>keine Namen, Kontaktdaten oder echten Kundendaten</strong>.
+                    Für den Kontakt gibt es am Ende ein Formular.
+                </p>
+            </div>
+
+            <p class="chat-start">Beschreiben Sie mir in zwei bis drei Sätzen, welchen Prozess Sie gerne automatisieren würden – oder starten Sie mit einem Beispiel:</p>
+
             <div class="chat-suggestions" id="chatSuggestions"></div>
         </div>
 
@@ -84,16 +101,21 @@
     <div class="chat-composer-wrap">
         <div class="chat-composer">
             <textarea class="chat-input" id="chatInput" rows="1" placeholder="Beschreiben Sie Ihr Anliegen…" aria-label="Nachricht eingeben"></textarea>
+            <button class="chat-mic" id="chatMic" type="button" aria-label="Diktieren starten" aria-pressed="false" title="Diktieren (Spracherkennung des Browsers)" hidden>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 19v3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><rect x="9" y="2" width="6" height="13" rx="3"/></svg>
+            </button>
             <button class="chat-send" id="chatSend" type="button" aria-label="Nachricht senden" disabled>➤</button>
         </div>
         <p class="chat-legal">
             Der Assistent kann Fehler machen – bitte geben Sie keine sensiblen Daten ein.
+            <span id="chatMicHint" hidden>Beim Diktieren überträgt Ihr Browser die Aufnahme an seinen Spracherkennungsdienst.</span>
             <a href="datenschutz.html">Datenschutzhinweis</a>
         </p>
     </div>
 </main>
 
 <script src="assets/js/main.js" defer></script>
+<script src="assets/js/dictation.js" defer></script>
 <script src="assets/js/projekt-check.js" defer></script>
 </body>
 </html>

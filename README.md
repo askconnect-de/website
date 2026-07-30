@@ -64,6 +64,31 @@ Cyan in den Service-Karten, Weiß in den Vorteils-Kreisen.
 Ausnahme: In der Chat-Oberfläche (`projekt-check.html`) sind bewusst Emojis
 im Einsatz (Avatare, Sende-Pfeil) – dort sind sie Konvention.
 
+## Diktierfunktion (Projekt-Check)
+
+Die Spracheingabe liegt in [assets/js/dictation.js](assets/js/dictation.js),
+die Tests dazu in [tests/dictation.test.js](tests/dictation.test.js):
+
+```bash
+node tests/dictation.test.js
+```
+
+**Bevor jemand daran etwas „vereinfacht":** Man darf die Transkripte aus
+`event.results` nicht einfach aneinanderhängen. Desktop-Chrome liefert
+disjunkte Segmente, Android und iOS dagegen kumulative – jeder Eintrag
+wiederholt den kompletten bisherigen Satz. Aneinanderhängen ergibt dort
+„jedes Wort fünfmal hintereinander". Deshalb `appendSmart`, `containsSeq`
+und `collapseRuns`. Die Tests decken beide Semantiken ab.
+
+Zum Prüfen am Gerät: `projekt-check.html#micdebug` öffnen – dann erscheint
+unten ein Protokoll aller Ereignisse samt Build-Kennung. Mobile Browser
+cachen HTML hartnäckig; beim Testen die URL mit `?v=2`, `?v=3` … aufrufen,
+sonst debuggt man eine alte Fassung.
+
+Die Web Speech API braucht **HTTPS**; einzige Ausnahme ist `localhost`. Über
+`http://` auf einer IP-Adresse im WLAN gibt der Browser das Mikrofon nicht
+frei – ein Test vom Handy aus über die Laptop-IP funktioniert deshalb nicht.
+
 ## Neue Seite anlegen
 
 1. Eine bestehende Unterseite kopieren (z. B. `vorteile.html`).

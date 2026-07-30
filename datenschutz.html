@@ -28,7 +28,7 @@
             <li><a href="vorteile.html">Vorteile</a></li>
             <li><a href="ablauf.html">Ablauf</a></li>
             <li><a href="faq.html">FAQ</a></li>
-            <li><a href="projekt-check.html">Projekt-Check</a></li>
+            <li><a class="nav-check" href="projekt-check.html" data-label="Projekt-Check">Projekt-Check</a></li>
             <li><a class="nav-cta" href="kontakt.html">Kontakt</a></li>
         </ul>
         <button class="burger" id="burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
@@ -46,7 +46,7 @@
         <li><a href="vorteile.html">Vorteile</a></li>
         <li><a href="ablauf.html">Ablauf</a></li>
         <li><a href="faq.html">FAQ</a></li>
-        <li><a href="projekt-check.html">Projekt-Check</a></li>
+        <li><a class="nav-check" href="projekt-check.html" data-label="Projekt-Check">Projekt-Check</a></li>
         <li><a href="kontakt.html">Kontakt</a></li>
         <li><a href="impressum.html">Impressum</a></li>
         <li><a href="datenschutz.html">Datenschutz</a></li>
@@ -78,13 +78,17 @@
         <p>Auf dieser Website stehen KI-gestützte Chat-Assistenten zur Verfügung. Die von Ihnen eingegebenen Nachrichten werden an unsere Automatisierungsplattform (n8n, betrieben unter <code>askconnect.de</code>) übermittelt und dort zur Erzeugung einer Antwort verarbeitet. Bitte geben Sie im Chat <strong>keine sensiblen personenbezogenen Daten</strong> ein. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO bzw. Art. 6 Abs. 1 lit. b DSGVO, wenn der Chat der Anbahnung eines Vertrags dient.</p>
         <p>Zur Zuordnung der Unterhaltung wird jeweils eine zufällig erzeugte Sitzungskennung verwendet. Beim <strong>Projekt-Check</strong> besteht diese Kennung nur im Arbeitsspeicher und ist mit dem Neuladen der Seite verloren. Der <strong>ASKbot</strong> (Chat-Symbol unten rechts) speichert die Kennung unter dem Schlüssel <code>n8n-chat/sessionId</code> dauerhaft im lokalen Speicher Ihres Browsers, damit ein früheres Gespräch beim nächsten Besuch fortgesetzt werden kann. Diese Speicherung erfolgt erst, wenn Sie den Chat aktiv öffnen, und ist für die von Ihnen angeforderte Funktion erforderlich (§ 25 Abs. 2 Nr. 2 TDDDG). Sie können den Eintrag jederzeit über die Einstellungen Ihres Browsers löschen.</p>
 
-        <h2>5. Lokale Speicherung im Browser</h2>
+        <h2>5. Diktierfunktion im Projekt-Check</h2>
+        <p>Im Projekt-Check können Sie Ihre Nachricht statt zu tippen auch diktieren. Dafür nutzen wir die Spracherkennung, die in Ihrem Browser eingebaut ist (Web Speech API). Die Aufnahme wird dabei <strong>nicht an uns</strong> übertragen, sondern – je nach Browser – an den Spracherkennungsdienst des Browserherstellers, bei Google Chrome etwa an Google. Auf diese Verarbeitung haben wir keinen Einfluss; es gelten die Datenschutzbestimmungen des jeweiligen Herstellers.</p>
+        <p>Die Funktion startet ausschließlich, wenn Sie den Mikrofonknopf aktiv anklicken, und erfordert zusätzlich Ihre Zustimmung zum Mikrofonzugriff im Browser. Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO (Einwilligung), die Sie jederzeit widerrufen können, indem Sie die Funktion nicht mehr nutzen. Der erkannte Text erscheint im Eingabefeld und wird erst dann an uns übermittelt, wenn Sie ihn absenden. Wenn Sie das vermeiden möchten, tippen Sie Ihre Nachricht einfach.</p>
+
+        <h2>6. Lokale Speicherung im Browser</h2>
         <p>Übergeben Sie ein Chat-Ergebnis an das Kontaktformular, speichern wir den Gesprächsverlauf kurzzeitig im <code>sessionStorage</code> Ihres Browsers. Dieser Eintrag wird nach der Übernahme in das Formular automatisch gelöscht, spätestens beim Schließen des Browser-Tabs. Es werden keine Tracking-Cookies gesetzt.</p>
 
-        <h2>6. Eingebundene externe Ressourcen</h2>
+        <h2>7. Eingebundene externe Ressourcen</h2>
         <p>Für die Chat-Oberfläche wird eine Programmbibliothek über das Content Delivery Network <code>jsdelivr.net</code> geladen. Dabei wird Ihre IP-Adresse an den Anbieter übermittelt. Auf der Seite „Über uns“ wird zudem ein Profilbild von LinkedIn (<code>media.licdn.com</code>) geladen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO.</p>
 
-        <h2>7. Ihre Rechte</h2>
+        <h2>8. Ihre Rechte</h2>
         <ul>
             <li>Auskunft über die verarbeiteten Daten (Art. 15 DSGVO)</li>
             <li>Berichtigung unrichtiger Daten (Art. 16 DSGVO)</li>
@@ -95,7 +99,7 @@
         </ul>
         <p>Wenden Sie sich dafür jederzeit an <a href="mailto:info@askconnect.de">info@askconnect.de</a>.</p>
 
-        <h2>8. Änderungen dieser Erklärung</h2>
+        <h2>9. Änderungen dieser Erklärung</h2>
         <p>Wir passen diese Datenschutzerklärung an, sobald sich die Rechtslage oder unsere Verarbeitungen ändern. Es gilt jeweils die auf dieser Seite veröffentlichte Fassung.</p>
     </section>
 </main>

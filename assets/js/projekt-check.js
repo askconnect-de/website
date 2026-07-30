@@ -7,12 +7,11 @@
        webhookUrl: Production-URL des n8n-Webhook-Nodes (Workflow muss aktiv sein). */
     var CONFIG = {
         webhookUrl: 'https://n8n-dev.askconnect.de/webhook/8c495e3d-cd49-44f5-aaf2-fd211b2085a7',
-        greeting: 'Guten Tag! Beschreiben Sie kurz, wie Kundenanfragen bei Ihnen hereinkommen und was am meisten Zeit kostet – ich sage Ihnen, was sich davon automatisieren lässt.',
+        greeting: 'Finden wir es gemeinsam heraus – für weniger Aufwand und echte Kostenersparnis.',
         suggestions: [
             { title: 'Das Telefon klingelt ständig', text: 'Ich bin den ganzen Tag beim Kunden und verpasse dauernd Anrufe.' },
             { title: 'Immer die gleichen Fragen', text: 'Kunden fragen ständig dasselbe: Preise, Termine, Anfahrt, Notdienst.' },
-            { title: 'Anfragen bleiben liegen', text: 'E-Mails und Anfragen über die Website bleiben tagelang liegen, weil abends niemand mehr rangeht.' },
-            { title: 'Erstmal verstehen, worum es geht', text: 'Ich weiß noch nicht genau, was mir KI in meinem Betrieb bringen soll. Können Sie das erklären?' }
+            { title: 'Anfragen bleiben liegen', text: 'E-Mails und Anfragen über die Website bleiben tagelang liegen, weil abends niemand mehr rangeht.' }
         ],
         errorText: 'Unser Assistent ist gerade nicht erreichbar.'
     };
@@ -42,6 +41,8 @@
     var errorBox = document.getElementById('chatError');
     var handoverBtn = document.getElementById('chatHandover');
     var resetBtn = document.getElementById('chatReset');
+    var micBtn = document.getElementById('chatMic');
+    var micHint = document.getElementById('chatMicHint');
 
     if (!thread || !input) return;
 
@@ -288,11 +289,12 @@
     });
 
     /* ═══════════════ EVENTS ═══════════════ */
-    sendBtn.addEventListener('click', function () { send(input.value); });
+    sendBtn.addEventListener('click', function () { stopDictation(); send(input.value); });
 
     input.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
+            stopDictation();
             send(input.value);
         }
     });
@@ -303,6 +305,28 @@
     });
 
     handoverBtn.addEventListener('click', handover);
+
+    /* ═══════════════ DIKTIEREN ═══════════════
+       Die gesamte Textlogik steckt in assets/js/dictation.js – dort ist auch
+       erklärt, warum man Transkripte nicht einfach aneinanderhängen darf.
+       Getestet mit: node tests/dictation.test.js */
+    var dictation = (window.ASKDictation && window.ASKDictation.attach) ?
+        window.ASKDictation.attach({
+            input: input,
+            button: micBtn,
+            hint: micHint,
+            lang: 'de-DE',
+            onUpdate: function () {
+                autoGrow();
+                sendBtn.disabled = input.value.trim() === '' || isWaiting;
+            }
+        }) : null;
+
+    /* Beim Absenden das Mikrofon schließen, sonst diktiert es in die nächste,
+       noch leere Nachricht weiter. */
+    function stopDictation() {
+        if (dictation && dictation.isListening()) dictation.stop();
+    }
 
     resetBtn.addEventListener('click', function () {
         messages = [];
