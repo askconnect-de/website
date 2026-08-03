@@ -76,6 +76,22 @@
             }
         }, { once: true });
 
+        /* Die ersten Sekunden zeigen, wie die Figur ins Bild fliegt – das soll
+           nicht bei jeder Schleife wieder passieren. Statt die Datei zu
+           schneiden (bräuchte ffmpeg) beginnt die Wiedergabe später und
+           springt am Ende dorthin zurück. `loop` steht deshalb nicht im
+           HTML: es würde immer auf 0 zurückspulen. */
+        var START = 2.0;
+
+        heroVideo.addEventListener('loadedmetadata', function () {
+            if (heroVideo.duration > START + 1) heroVideo.currentTime = START;
+        }, { once: true });
+
+        heroVideo.addEventListener('ended', function () {
+            heroVideo.currentTime = (heroVideo.duration > START + 1) ? START : 0;
+            heroVideo.play().catch(function () { /* Schleife endet still */ });
+        });
+
         heroVideo.src = heroVideo.getAttribute('data-src');
         var abspielen = heroVideo.play();
         if (abspielen && typeof abspielen.catch === 'function') {
