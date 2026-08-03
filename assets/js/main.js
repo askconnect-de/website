@@ -20,17 +20,67 @@
     /* ---------- Roboter im Hero ----------
        Fehlt die Bilddatei, wird die Figur ausgeblendet statt ein kaputtes
        Bildsymbol im Hero stehen zu lassen. */
-    var heroBot = document.querySelector('.hero-bot img');
-    if (heroBot) {
-        var hideBot = function () {
-            var box = heroBot.parentNode;
-            if (box) box.style.display = 'none';
-        };
-        heroBot.addEventListener('error', hideBot);
+    var heroBox = document.getElementById('heroBot');
+    var heroVideo = document.getElementById('heroBotVideo');
+    var heroImage = heroBox ? heroBox.querySelector('img') : null;
+
+    function heroStill() {
+        if (heroBox) heroBox.classList.add('still');
+        if (heroVideo) {
+            try { heroVideo.pause(); } catch (e) { /* egal */ }
+        }
+    }
+
+    if (heroBox && heroImage) {
+        var hideBot = function () { heroBox.style.display = 'none'; };
+        heroImage.addEventListener('error', hideBot);
         /* Dieses Skript läuft mit `defer`, das Fehlerereignis ist zu dem
            Zeitpunkt oft schon durch. Deshalb zusätzlich der Nachtest:
            fertig geladen, aber ohne Breite = die Datei fehlt. */
-        if (heroBot.complete && heroBot.naturalWidth === 0) hideBot();
+        if (heroImage.complete && heroImage.naturalWidth === 0) hideBot();
+    }
+
+    /* Das Video wiegt mehrere Megabyte. Es wird deshalb nur geladen, wenn die
+       Figur sichtbar ist (ab Tablet-Breite) und Bewegung nicht abbestellt
+       wurde – sonst bleibt es beim Standbild. */
+    var botSichtbar = window.matchMedia('(min-width: 769px)').matches;
+    var ruhigerModus = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (heroVideo && (!botSichtbar || ruhigerModus)) {
+        heroStill();
+    } else if (heroVideo) {
+        /* Safari spielt VP9-WebM ab, ignoriert aber den Alphakanal – der
+           Roboter säße dort in einem schwarzen Kasten. Statt nach Browsern zu
+           raten, wird ein Einzelbild auf eine Leinwand gezeichnet und eine
+           Ecke ausgelesen: ist sie undurchsichtig, kann der Browser keine
+           Transparenz und wir zeigen das Standbild. */
+        heroVideo.muted = true;   // manche Browser starten sonst nicht
+
+        heroVideo.addEventListener('error', heroStill);
+
+        heroVideo.addEventListener('loadeddata', function () {
+            try {
+                var probe = document.createElement('canvas');
+                probe.width = 8;
+                probe.height = 8;
+                var ctx = probe.getContext('2d');
+                /* Linke obere Ecke des Videos – dort ist der Roboter nie. */
+                ctx.clearRect(0, 0, 8, 8);
+                ctx.drawImage(heroVideo, 0, 0, 8, 8, 0, 0, 8, 8);
+                var alpha = ctx.getImageData(1, 1, 1, 1).data[3];
+                if (alpha > 20) heroStill();
+            } catch (e) {
+                /* Leinwand nicht lesbar: lieber das Standbild als ein
+                   möglicherweise schwarzer Kasten. */
+                heroStill();
+            }
+        }, { once: true });
+
+        heroVideo.src = heroVideo.getAttribute('data-src');
+        var abspielen = heroVideo.play();
+        if (abspielen && typeof abspielen.catch === 'function') {
+            abspielen.catch(function () { heroStill(); });
+        }
     }
 
     /* ---------- Header-Scroll & Scroll-to-Top ---------- */

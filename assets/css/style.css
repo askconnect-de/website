@@ -518,25 +518,59 @@ section {
 .cta-band h2 { font-size: 2rem; margin-bottom: 0.75rem; }
 .cta-band p { opacity: 0.9; margin-bottom: 1.75rem; }
 
-/* Roboter-Figur im Hero (Bilddatei statt CSS-Konstruktion).
-   Bewusst über die HÖHE bemessen, nicht über die Breite: Die Figur ist schmal
-   und hoch (Seitenverhältnis 0,55). Eine Breitenangabe macht sie doppelt so
-   hoch wie erwartet – dann ragt sie in die Überschrift. */
+/* Roboter-Figur im Hero.
+   Das Video ist 1280x720 gross, der Roboter sitzt darin unten links bei
+   x 202..642 und y 290..719 (gemessen ueber sechs Frames wegen der
+   Winkbewegung). Der Rahmen umschliesst deshalb nur den Roboter, das Video
+   wird darin vergroessert und verschoben:
+     Hoehe   720/430 = 167,44 % der Rahmenhoehe
+     Versatz 202/441 =  45,80 % der Rahmenbreite nach links
+   Dadurch bleibt `bottom`/`left` am Rahmen so bedienbar wie bei einem Bild.
+
+   Fallback: Safari spielt VP9-WebM zwar ab, ignoriert aber den Alphakanal –
+   das Video haette dort einen schwarzen Kasten. main.js prueft das per
+   Canvas und setzt dann die Klasse `still`, die auf das PNG umschaltet. */
 .hero-bot {
     position: absolute;
     bottom: 4%;
     left: 3%;
     height: 320px;
+    aspect-ratio: 441 / 430;
     z-index: 2;
     pointer-events: none;
-    animation: botHover 4s ease-in-out infinite;
+}
+
+/* Nur das Standbild schwebt. Das Video bringt seine eigene Bewegung mit –
+   beides zusammen wirkt unruhig. */
+.hero-bot.still { animation: botHover 4s ease-in-out infinite; }
+
+.hero-bot video {
+    position: absolute;
+    bottom: 0;
+    left: -45.80%;
+    height: 167.44%;
+    width: auto;
+    max-width: none;
+    filter: drop-shadow(0 12px 30px rgba(0, 212, 255, 0.28));
 }
 
 .hero-bot img {
+    display: none;
     height: 100%;
     width: auto;
     max-width: none;
     filter: drop-shadow(0 12px 30px rgba(0, 212, 255, 0.28));
+}
+
+/* Standbild statt Video: kein Alphakanal im Browser oder Bewegung unerwuenscht */
+.hero-bot.still { aspect-ratio: 460 / 684; }
+.hero-bot.still video { display: none; }
+.hero-bot.still img { display: block; }
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-bot { aspect-ratio: 460 / 684; }
+    .hero-bot video { display: none; }
+    .hero-bot img { display: block; }
 }
 
 @keyframes botHover {
