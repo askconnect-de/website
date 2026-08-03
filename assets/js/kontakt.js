@@ -63,12 +63,62 @@
         } catch (e) { /* ignorieren */ }
     })();
 
-    /* ---------- Inline-Validierung ---------- */
-    form.querySelectorAll('input, textarea').forEach(function (field) {
-        field.addEventListener('blur', function () {
-            if (field.hasAttribute('required')) {
-                field.classList.toggle('invalid', !field.value.trim());
+    /* ---------- Validierung ----------
+       Das Formular trägt `novalidate`, damit wir eigene Meldungen im Stil der
+       Seite zeigen können statt der Browser-Sprechblasen. Deshalb muss hier
+       auch tatsächlich geprüft werden – sonst ginge alles Leere durch. */
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+
+    function fieldError(field) {
+        var value = field.value.trim();
+
+        if (field.hasAttribute('required') && !value) {
+            if (field === nameField) return 'Bitte geben Sie Ihren Namen an.';
+            if (field === emailField) return 'Bitte geben Sie Ihre E-Mail-Adresse an.';
+            if (field === textField) return 'Bitte beschreiben Sie kurz Ihr Anliegen.';
+            return 'Bitte füllen Sie dieses Feld aus.';
+        }
+        if (field === emailField && value && !EMAIL_RE.test(value)) {
+            return 'Diese E-Mail-Adresse sieht nicht vollständig aus.';
+        }
+        if (field === textField && value && value.length < 10) {
+            return 'Ein, zwei Sätze mehr helfen uns weiter.';
+        }
+        return '';
+    }
+
+    function showNote(text, isError) {
+        if (!note) return;
+        note.textContent = text;
+        note.classList.toggle('error', !!isError);
+        note.classList.add('show');
+    }
+
+    function validate() {
+        var firstBad = null;
+        var message = '';
+
+        [nameField, emailField, textField].forEach(function (field) {
+            var error = fieldError(field);
+            field.classList.toggle('invalid', !!error);
+            if (error && !firstBad) {
+                firstBad = field;
+                message = error;
             }
+        });
+
+        if (firstBad) {
+            showNote(message, true);
+            firstBad.focus();
+            return false;
+        }
+        return true;
+    }
+
+    /* Beim Verlassen prüfen, beim Tippen die Markierung wieder wegnehmen. */
+    [nameField, emailField, companyField, textField].forEach(function (field) {
+        field.addEventListener('blur', function () {
+            field.classList.toggle('invalid', !!fieldError(field));
         });
         field.addEventListener('input', function () {
             field.classList.remove('invalid');
@@ -86,6 +136,9 @@
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
+
+        /* Leere oder unvollständige Angaben gehen gar nicht erst raus. */
+        if (!validate()) return;
 
         button.textContent = 'Wird gesendet…';
         button.style.background = 'linear-gradient(45deg, #28a745, #20c997)';
@@ -107,20 +160,14 @@
                 button.textContent = 'Gesendet! ✓';
                 form.reset();
                 historyField.value = '';
-                if (note) {
-                    note.textContent = '✓ Vielen Dank! Wir melden uns in der Regel innerhalb von 24 Stunden.';
-                    note.classList.add('show');
-                }
+                showNote('✓ Vielen Dank! Wir melden uns in der Regel innerhalb von 24 Stunden.', false);
                 resetButton(2500);
             })
             .catch(function (err) {
                 console.error('[Kontakt] Fehler beim Senden:', err);
                 button.textContent = 'Ein Fehler ist aufgetreten';
                 button.style.background = 'linear-gradient(45deg, #ffc1c1, #ff7a7a)';
-                if (note) {
-                    note.textContent = 'Das Senden hat nicht geklappt. Schreib uns gerne direkt an info@askconnect.de.';
-                    note.classList.add('show');
-                }
+                showNote('Das Senden hat nicht geklappt. Schreiben Sie uns gerne direkt an info@askconnect.de.', true);
                 resetButton(3000);
             });
     });

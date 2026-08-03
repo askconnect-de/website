@@ -930,6 +930,13 @@ section {
 
 .form-note.show { display: block; }
 
+/* Fehlermeldungen deutlich vom grünen Erfolgshinweis unterscheiden */
+.form-note.error {
+    background: rgba(255, 0, 110, 0.12);
+    border-color: rgba(255, 0, 110, 0.4);
+    color: #ffb3d1;
+}
+
 .contact-form .cta-button { width: 100%; text-align: center; }
 
 /* Kontakt-Infokarten */
